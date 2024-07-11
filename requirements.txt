@@ -1,2 +1,13 @@
 altair
 tabulate
+opencv-python
+matplotlib
+scikit-learn
+ultralytics
+pytesseract
+tesseract-ocr
+extcolors
+colormap
+selenium
+pyautogui
+ffmpeg-python
