@@ -3,6 +3,9 @@ notebooks/playground/
 
 node_modules/
 
+# Ignore model files
+yolo*.pt
+
 # IDE
 .idea
 
