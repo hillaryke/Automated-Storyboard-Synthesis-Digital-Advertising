@@ -2,7 +2,6 @@ altair
 tabulate
 opencv-python
 matplotlib
-scikit-learn
 ultralytics
 pytesseract
 tesseract-ocr
@@ -12,4 +11,7 @@ selenium
 pyautogui
 ffmpeg-python
 pyautogen[lmm]
+
+#### FOR DEVELOPMENT ####
 # transformers
+# scikit-learn
