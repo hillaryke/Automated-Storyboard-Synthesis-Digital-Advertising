@@ -34,9 +34,8 @@ def paste_image(base_image, img, position, has_background=True):
     else:
         base_image.alpha_composite(img, position)
 
-from PIL import Image
 
-def compose_ad_frame(frame_width, frame_height, elements):
+def compose_ad_frame(frame_width: int, frame_height: int, elements: list, output_path: str = 'composed_image_frame.jpg') -> Image:
     """
     Composes an advertisement frame using multiple image elements.
 
@@ -77,8 +76,14 @@ def compose_ad_frame(frame_width, frame_height, elements):
         else:
             composed_frame.alpha_composite(img, element['position'])
 
-    # Convert to RGB and return
-    return composed_frame.convert('RGB')
+    # Convert to RGB
+    new_img = composed_frame.convert('RGB')
+    
+    # Save the image
+    new_img.save(output_path)
+    
+    return new_img
+
 
 ## Example usage
 ## assets_path = '/path/to/assets'
