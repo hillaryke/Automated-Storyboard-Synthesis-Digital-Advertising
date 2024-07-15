@@ -1,5 +1,41 @@
 from PIL import Image
 
+from PIL import Image
+
+def load_and_prepare_image(image_path, target_size=None, has_background=True):
+    """
+    Loads an image, resizes it if a target size is specified, and prepares it for composition.
+
+    Args:
+        image_path (str): Path to the image file.
+        target_size (tuple, optional): Desired (width, height) to resize the image.
+        has_background (bool): Indicates if the image has a background.
+
+    Returns:
+        PIL.Image: The prepared image.
+    """
+    img = Image.open(image_path).convert('RGBA')
+    if target_size:
+        img = img.resize(target_size, Image.Resampling.LANCZOS)
+    return img
+
+def paste_image(base_image, img, position, has_background=True):
+    """
+    Pastes an image onto the base image, considering transparency.
+
+    Args:
+        base_image (PIL.Image): The base image.
+        img (PIL.Image): The image to paste.
+        position (tuple): (x, y) position to paste the image.
+        has_background (bool): Indicates if the image has a background.
+    """
+    if has_background:
+        base_image.paste(img, position, img.split()[3] if img.mode == 'RGBA' else None)
+    else:
+        base_image.alpha_composite(img, position)
+
+from PIL import Image
+
 def compose_ad_frame(frame_width, frame_height, elements):
     """
     Composes an advertisement frame using multiple image elements.
@@ -43,3 +79,14 @@ def compose_ad_frame(frame_width, frame_height, elements):
 
     # Convert to RGB and return
     return composed_frame.convert('RGB')
+
+## Example usage
+## assets_path = '/path/to/assets'
+# elements = [
+#     {'image_path': f'{assets_path}/header.jpg', 'position': (0, 0), 'has_background': True},
+#     {'image_path': f'{assets_path}/engagement_instruction_1.png', 'position': (40, 100), 'has_background': False},
+#     {'image_path': f'{assets_path}/thumbnail.jpg', 'position': (0, 200), 'size': get_image_dimensions(f'{assets_path}/thumbnail.jpg'), 'has_background': True}
+# ]
+
+# composed_frame = compose_ad_frame(600, 500, elements)
+# composed_frame.show()  # Or save using composed_frame.save('composed_frame.jpg')
