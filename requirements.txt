@@ -11,3 +11,5 @@ colormap
 selenium
 pyautogui
 ffmpeg-python
+pyautogen[lmm]
+# transformers
