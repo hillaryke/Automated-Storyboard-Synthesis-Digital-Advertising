@@ -1,7 +1,5 @@
 from PIL import Image
 
-from PIL import Image
-
 def load_and_prepare_image(image_path, target_size=None, has_background=True):
     """
     Loads an image, resizes it if a target size is specified, and prepares it for composition.
