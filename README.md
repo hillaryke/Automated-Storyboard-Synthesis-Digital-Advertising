@@ -1,6 +1,6 @@
-# Automated-Storyboard-Synthesis-Digital-Advertisin
+# Automated-Storyboard-Synthesis-Digital-Advertising
 
-## Overviw
+## Overview
 This project uses smart computer techniques to automatically turn simple text descriptions into detailed visual storyboards for ads. This innovative approach has the potential to streamline the ad creation process, making it quicker, cheaper, and more efficient.
 
 ## Business Objective
@@ -31,17 +31,21 @@ The project is structured as follows:
 ## Project implementation
 The project implementation involved several steps, leveraging the tools and techniques in computer vision, agents and machine learning in general.
 More detailed report on the project can be found on the Medium blog [here]()
-1. Data Exploration and Analysis:
+
+1. **Data Exploration and Analysis**:
    - The performance_data.csv file was analyzed to understand the distribution of engagement rate (ER) and click-through rate (CTR) across different ads.
-2. Image Analysis (to be used by Critic agent):
+
+2. **Image Analysis (to be used by Critic agent):**
    - The locate_image_on_image function was implemented using OpenCV to identify the positions of specific image elements within larger ad images.
    - The extcolors library was used to extract dominant colors from ad images, providing insights into color composition and usage.
    - The YOLOv8 object detection model was explored to identify and classify objects within images, although challenges were encountered in setting up the model.
    - Pytesseract, an OCR tool, was used to extract text from images, enabling analysis of textual content in ads.
-3. Image Composition:
+
+3. **Image Composition:**
    - A function compose_ad_frame was developed using Pillow to combine multiple image elements into a single ad frame.
    - The function handles resizing, positioning, and transparency of images, allowing for flexible and customizable composition.
-4. Agents Development:
+
+4. **Agents Development:**
    - The project aims to develop AutoGen agents for image composition and critique/grading.
    - The image composition agent utilizes the compose_ad_frame function and incorporate design principles and user feedback to create visually appealing and effective ad frames.
    - The critic/grading agent (ongoing) will leverage image analysis techniques, text analysis, and a knowledge base of design principles and advertising best practices to evaluate and provide feedback on the composed frames.
