@@ -32,7 +32,7 @@ const FileUploadComponent = () => {
   const handleGenerate = () => {
     const formData = new FormData();
     documents.forEach((doc, index) => {
-      formData.append(`file${index}`, doc);
+      formData.append('files', doc);
     });
 
     axios.post('http://localhost:8000/upload', formData, {
