@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const FileUploadComponent = () => {
-  const [documents, setDocuments] = useState(["", "", ""]);
+  const [documents, setDocuments] = useState([]);
   const [activeDrag, setActiveDrag] = useState(false);
 
   const startDrag = (event) => {
     event.preventDefault();
-    console.log("dragging");
     setActiveDrag(true);
   };
 
@@ -18,9 +18,34 @@ const FileUploadComponent = () => {
   const handleFileDropped = (event) => {
     event.preventDefault();
     setActiveDrag(false);
-    const file = JSON.stringify(event.dataTransfer);
-    console.log(event);
-    console.log(file);
+    const files = Array.from(event.dataTransfer.files);
+    const validFiles = files.filter(file => file.type === 'image/jpeg' || file.type === 'image/png');
+    setDocuments([...documents, ...validFiles]);
+  };
+
+  const handleFileChange = (event) => {
+    const files = Array.from(event.target.files);
+    const validFiles = files.filter(file => file.type === 'image/jpeg' || file.type === 'image/png');
+    setDocuments([...documents, ...validFiles]);
+  };
+
+  const handleGenerate = () => {
+    const formData = new FormData();
+    documents.forEach((doc, index) => {
+      formData.append(`file${index}`, doc);
+    });
+
+    axios.post('http://localhost:8000/upload', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+    .then(response => {
+      console.log('Upload successful:', response.data);
+    })
+    .catch(error => {
+      console.error('Upload error:', error);
+    });
   };
 
   return (
@@ -63,7 +88,7 @@ const FileUploadComponent = () => {
                   <span className="font-semibold">Click to upload</span> or drag and drop
                 </p>
               </div>
-              <input id="dropzone-file" type="file" className="hidden" accept=".pdf,.jpg,.jpeg,.png" />
+              <input id="dropzone-file" type="file" className="hidden" accept=".jpg,.jpeg,.png" onChange={handleFileChange} multiple />
             </label>
           </div>
           <div className="flex justify-between mt-2">
@@ -72,7 +97,7 @@ const FileUploadComponent = () => {
           </div>
         </div>
         <div className={`w-full mt-3 gap-1 flex flex-col ${documents.length ? '' : 'hidden'}`}>
-          {documents.map((item, key) => (
+          {documents.map((doc, key) => (
             <div key={key} className="w-full bg-white shadow-sm p-2 rounded-lg border">
               <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38" fill="none">
                 <rect width="38" height="38" rx="8" fill="#8331A7" />
@@ -87,6 +112,12 @@ const FileUploadComponent = () => {
             </div>
           ))}
         </div>
+        <button
+          onClick={handleGenerate}
+          className="mt-4 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600"
+        >
+          Generate
+        </button>
       </div>
     </div>
   );
