@@ -74,6 +74,10 @@ def extract_text_with_positions(image_path):
     Raises:
         FileNotFoundError: If the image file does not exist.
         Exception: For errors related to image loading and OCR processing.
+        
+    Example Usage:
+        header_image_path = "/home/hillary_kipkemoi/Automated-Storyboard-Synthesis-Digital-Advertising/data/Assets/0a22f881b77f00220f2034c21a18b854/header.jpg"
+        result = extract_text_with_positions(header_image_path)
     """
     # Check if the image file exists
     try:
