@@ -80,7 +80,7 @@ def compose_ad_frame(frame_width: int, frame_height: int, elements: list, output
     # Save the image
     new_img.save(output_path)
     
-    return new_img
+    return output_path
 
 
 ## Example usage
